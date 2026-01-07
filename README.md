@@ -1,6 +1,7 @@
-# windfish
-
+# Windfish
 A Rust library for reading and writing Bitcoin Core `mempool.dat` files.
+
+![windfish TUI](media/windfish_screenshot.png)
 
 ## Features
 
@@ -16,6 +17,14 @@ use std::path::Path;
 
 let mempool = MempoolSerde::new(Path::new("mempool.dat")).unwrap();
 println!("Transactions: {}", mempool.txs.len());
+```
+
+## TUI
+
+A terminal interface for exploring mempool.dat files.
+
+```bash
+cargo run -p windfish-tui -- <path-to-mempool.dat>
 ```
 
 ## License
