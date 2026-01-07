@@ -32,6 +32,12 @@ pub struct MempoolSerde {
 }
 
 impl MempoolSerde {
+    /// Creates a new `MempoolSerde` by reading and parsing a mempool.dat file.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the file cannot be opened, read, or if the data
+    /// cannot be decoded as a valid mempool format.
     pub fn new(path: &Path) -> MempoolResult<Self> {
         let mut f = BufReader::new(File::open(path).map_err(MempoolSerdeError::Io)?);
 
@@ -73,7 +79,7 @@ impl MempoolSerde {
             _ => unimplemented!("Currently V2 (XOR'd) mempool backups are not decodable."),
         }
 
-        Ok(MempoolSerde {
+        Ok(Self {
             version,
             txs,
             map_deltas,
@@ -81,6 +87,11 @@ impl MempoolSerde {
         })
     }
 
+    /// Serializes the mempool data to a byte vector.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if encoding any of the data fails.
     pub fn to_bytes(&self) -> MempoolResult<Vec<u8>> {
         let mut buf = Vec::new();
 
@@ -107,6 +118,12 @@ impl MempoolSerde {
         Ok(buf)
     }
 
+    /// Writes the mempool data to a file at the specified path.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the file cannot be created or written to,
+    /// or if serialization fails.
     pub fn write_to_file(&self, path: &Path) -> MempoolResult<()> {
         let bytes = self.to_bytes()?;
         let mut file = File::create(path).map_err(MempoolSerdeError::Io)?;
@@ -138,7 +155,6 @@ mod tests {
         let mempool = MempoolSerde::new(Path::new("./test/mempool_t4_v1_001.dat")).unwrap();
         assert_eq!(mempool.version, 1);
         assert_ne!(mempool.version, 2);
-        println!("{:?}", mempool);
     }
 
     #[test]
