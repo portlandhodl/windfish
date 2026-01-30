@@ -19,7 +19,3 @@ let mempool = MempoolSerde::new(Path::new("mempool.dat")).unwrap();
 println!("Transactions: {}", mempool.txs.len());
 ```
 
-## TUI
-
-A terminal interface for exploring mempool.dat files.
-
