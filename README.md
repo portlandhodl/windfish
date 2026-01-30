@@ -26,7 +26,3 @@ A terminal interface for exploring mempool.dat files.
 ```bash
 cargo run -p windfish-tui -- <path-to-mempool.dat>
 ```
-
-## License
-
-MIT
