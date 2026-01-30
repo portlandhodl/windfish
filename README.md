@@ -10,5 +10,3 @@ A Rust library for reading and writing Bitcoin Core `mempool.dat` files.
 - Access transactions, fee deltas, and unbroadcast TXIDs
 
 ## Usage
-
-```rust
