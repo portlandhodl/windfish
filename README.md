@@ -15,7 +15,3 @@ A Rust library for reading and writing Bitcoin Core `mempool.dat` files.
 use windfish::MempoolSerde;
 use std::path::Path;
 
-let mempool = MempoolSerde::new(Path::new("mempool.dat")).unwrap();
-println!("Transactions: {}", mempool.txs.len());
-```
-
